@@ -34,10 +34,10 @@ const listGames = computed(() => {
 
 <template>
   <div class="loading"><img src="./assets/zelda.svg" /></div>
-  <h1 style="color: #cb6">Zelda video games during the time</h1>
   <video autoplay loop muted>
     <source src="./assets/space.mp4" type="video/mp4" />
   </video>
+  <h1 style="color: #cb6">Zelda video games during the time</h1>
   <div class="content">
     <div class="timeline">
       <div
@@ -49,7 +49,12 @@ const listGames = computed(() => {
         :key="index"
       >
         <div v-if="item.data.length" class="game">
-          <img v-for="image of item.data" class="image" :src="image.src" />
+          <img
+            v-for="image of item.data"
+            class="image"
+            :src="image.src"
+            loading="lazy"
+          />
         </div>
         <div
           v-if="item.data.length"
@@ -117,23 +122,22 @@ const listGames = computed(() => {
   cursor: pointer;
 }
 .loading {
-  visibility: visible;
+  align-items: center;
+  animation: loading 4s ease-out forwards;
+  background-color: black;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
   opacity: 1;
   position: fixed;
   top: 0;
-  left: 0;
-  background-color: black;
-  height: 100%;
+  visibility: visible;
   width: 100%;
   z-index: 5;
-  animation: loading 4s ease-out forwards;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .loading img {
-  height: 20%;
-  animation: loading-icon 3s linear forwards;
+  height: 20vh;
 }
 .timeline {
   display: flex;
