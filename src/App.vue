@@ -2,6 +2,7 @@
 import { games } from "./services/zelda";
 import { GameList } from "./types";
 import { computed } from "vue";
+import Particles from "./components/Particles.vue";
 
 const listGames = computed(() => {
   games.sort((a, b) => a.year - b.year);
@@ -34,10 +35,8 @@ const listGames = computed(() => {
 
 <template>
   <div class="loading"><img src="./assets/zelda.svg" /></div>
-  <video autoplay loop muted>
-    <source src="./assets/space.mp4" type="video/mp4" />
-  </video>
-  <h1 style="color: #cb6">Zelda video games during the time</h1>
+  <particles></particles>
+  <h1 style="color: #cb6">Zelda videogames during the time</h1>
   <div class="content">
     <div class="timeline">
       <div
@@ -67,35 +66,47 @@ const listGames = computed(() => {
   <footer>
     <p>
       Inspired from
-      <a href="https://www.youtube.com/@SuperMetaFun"
+      <a href="https://www.youtube.com/@SuperMetaFun" target="_blank"
         ><img src="./assets/youtube.svg" /> SuperMetaFun</a
       >
       in his video
-      <a href="https://www.youtube.com/watch?v=fHhYoJRm7nU&t=173s"
+      <a
+        href="https://www.youtube.com/watch?v=fHhYoJRm7nU&t=173s"
+        target="_blank"
         >The Innovative Design of Majora's Mask | Retrospective| Legend of Zelda
         | Nintendo 64
       </a>
       <br />
       All the info and dates from
-      <a href="https://retrododo.com/legend-of-zelda-games-in-order/">
+      <a
+        href="https://retrododo.com/legend-of-zelda-games-in-order/"
+        target="_blank"
+      >
         Retrododo.com
       </a>
       <br />
       Made with ❤️ by
-      <a href="https://github.com/cdmngz">cdmngz</a>
+      <a href="https://github.com/cdmngz" target="_blank">cdmngz</a>
     </p>
     <h5>© {{ new Date().getFullYear() }}</h5>
   </footer>
 </template>
 
 <style scoped>
+::-webkit-scrollbar {
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #a94;
+  border-radius: var(--soft);
+  width: 20px;
+}
 .content {
-  width: fit-content;
-  height: fit-content;
-  display: flex;
   align-items: center;
-  padding: 0 3%;
-  margin: 0;
+  display: flex;
+  height: fit-content;
+  overflow-x: scroll;
+  width: 100vw;
 }
 .divider.even {
   transform: translateY(-45%);
@@ -104,18 +115,19 @@ const listGames = computed(() => {
   transform: translateY(55%);
 }
 .game {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
   align-items: center;
   border-radius: var(--soft);
+  display: flex;
+  gap: 10px;
   height: 200px;
+  justify-content: center;
   position: relative;
 }
 .image {
-  max-width: 100%;
-  max-height: 80%;
   border-radius: var(--soft);
+  max-height: 80%;
+  max-width: 100%;
+  z-index: 1;
 }
 .image:hover {
   box-shadow: 0 0 22px rgba(255, 255, 255, 0.5);
@@ -123,7 +135,7 @@ const listGames = computed(() => {
 }
 .loading {
   align-items: center;
-  animation: loading 4s ease-out forwards;
+  animation: loading 5s ease-out forwards;
   background-color: black;
   display: flex;
   height: 100%;
@@ -137,24 +149,28 @@ const listGames = computed(() => {
   z-index: 5;
 }
 .loading img {
-  height: 20vh;
+  height: 18vh;
 }
 .timeline {
   display: flex;
+  margin: 0 10% 5% 10%;
   position: relative;
   height: 400px;
-  overflow: hidden;
 }
 .timeline::after {
   content: "";
-  background-color: rgba(255, 255, 255, 0.8);
+  background: linear-gradient(
+    90deg,
+    rgb(170, 153, 68) 0%,
+    rgb(255, 255, 255) 100%
+  );
   border-radius: 2px;
   height: 2px;
   top: 50%;
   width: 100%;
   position: absolute;
   transform: translateX(-200%);
-  animation: moveX 3s 0.5s linear forwards;
+  animation: moveX 10s linear forwards;
 }
 .divider {
   background-color: #fff;
@@ -189,11 +205,11 @@ const listGames = computed(() => {
   50% {
     background-color: #978339;
   }
-  40% {
+  80% {
     opacity: 1;
+    visibility: visible;
   }
   100% {
-    background-color: black;
     opacity: 0;
     visibility: hidden;
   }

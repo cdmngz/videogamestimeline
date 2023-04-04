@@ -83,10 +83,7 @@ video {
 }
 
 footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 5%;
-  margin-left: 5%;
-  padding-top: 25px;
+  padding-top: 3%;
   color: #a94;
 }
 

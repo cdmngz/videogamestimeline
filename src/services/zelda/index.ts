@@ -20,7 +20,7 @@ export const games: Game[] = [
     src: "https://www.zeldadungeon.net/wiki/images/b/b5/Zelda_G%26W_Boxart.jpg",
   },
   {
-    name: "The Legend of Zelda – Nelsonic Game Watch",
+    name: "The Legend of Zelda - Nelsonic Game Watch",
     year: 1989,
     console: "g&w",
     src: "https://lh3.googleusercontent.com/ci/AEwo86fBFyH5O_o3Tmq32WHhm062FxDBCXm_EB2p6pBHmITxEQWZymLYHADm8bSGqevkhIkSZlKl6xc=s1200",
@@ -34,11 +34,11 @@ export const games: Game[] = [
   {
     name: "The Legend of Zelda: Link's Awakening",
     year: 1993,
-    console: "gameboy",
+    console: "gb",
     src: "https://upload.wikimedia.org/wikipedia/en/c/c1/Link%27s_Awakening.png",
   },
   {
-    name: "Zelda no Densetsu 1 – The Hyrule Fantasy",
+    name: "Zelda no Densetsu 1 - The Hyrule Fantasy",
     year: 1994,
     console: "nes",
     src: "https://s.pacn.ws/1/p/PA.54166.001.jpg",
@@ -64,7 +64,7 @@ export const games: Game[] = [
   {
     name: "The Legend of Zelda: Link's Awakening DX",
     year: 1998,
-    console: "gbc",
+    console: "gbcolor",
     src: "https://upload.wikimedia.org/wikipedia/en/c/c1/Link%27s_Awakening.png",
   },
   {
@@ -74,10 +74,52 @@ export const games: Game[] = [
     src: "https://upload.wikimedia.org/wikipedia/en/6/60/The_Legend_of_Zelda_-_Majora%27s_Mask_Box_Art.jpg",
   },
   {
+    name: "The Legend of Zelda: Oracle of Ages",
+    year: 2001,
+    console: "gbcolor",
+    src: "https://cache.romsgames.net/static/44817f9c658ad7f176983d05fae971b200256cae/image.jpeg",
+  },
+  {
+    name: "The Legend of Zelda: Oracle of Seasons",
+    year: 2001,
+    console: "gbcolor",
+    src: "https://techtoroms.com/wp-content/uploads/2023/02/The-Legend-of-Zelda-Oracle-of-Seasons-ROM-GBC.jpeg",
+  },
+  {
+    name: "The Legend of Zelda: The Wind Waker",
+    year: 2002,
+    console: "gamecube",
+    src: "https://upload.wikimedia.org/wikipedia/en/7/79/The_Legend_of_Zelda_The_Wind_Waker.jpg",
+  },
+  {
+    name: "The Legend of Zelda: Ocarina of Time Master Quest",
+    year: 2002,
+    console: "gamecube",
+    src: "https://static.wikia.nocookie.net/zelda_gamepedia_en/images/6/61/Mqusbox.jpg",
+  },
+  {
+    name: "The Legend of Zelda: Collector's Edition",
+    year: 2003,
+    console: "gamecube",
+    src: "https://static.wikia.nocookie.net/zelda_gamepedia_en/images/4/46/CollectorsEdition.jpg",
+  },
+  {
+    name: "The Legend of Zelda: The Minish Cap",
+    year: 2004,
+    console: "gbadvance",
+    src: "https://static.wikia.nocookie.net/zelda_gamepedia_en/images/9/93/ZeldaMinishCap_BoxArt.jpg",
+  },
+  {
+    name: "The Legend of Zelda: Twilight Princess",
+    year: 2006,
+    console: "gamecube",
+    src: "https://upload.wikimedia.org/wikipedia/en/0/0e/The_Legend_of_Zelda_Twilight_Princess_Game_Cover.jpg",
+  },
+  {
     name: "Hyrule Warriors: Definitive Edition",
     year: 2018,
     console: "nswitch",
-    src: "https://www.nintendo.com/ph/switch/akut/img/hero_sp.jpg",
+    src: "https://images.eshop-prices.com/games/411/480w.jpeg",
   },
   {
     name: "Cadence of Hyrule: Crypt of the NecroDancer featuring The Legend of Zelda (2019)",
@@ -107,6 +149,6 @@ export const games: Game[] = [
     name: "The Legend of Zelda: Tears Of The Kingdom",
     year: 2023,
     console: "nswitch",
-    src: "https://m.media-amazon.com/images/M/MV5BNDAyNTI5MDctODNhNy00MjFmLTg5MDYtNDU0ZjM2ZDllNDU4XkEyXkFqcGdeQXVyOTc3NzE0NjM@._V1_.jpg",
+    src: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fb/The_Legend_of_Zelda_Tears_of_the_Kingdom_cover.jpg/220px-The_Legend_of_Zelda_Tears_of_the_Kingdom_cover.jpg",
   },
 ];
