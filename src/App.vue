@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { games } from "./services/zelda";
 import { GameList } from "./types";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import Particles from "./components/Particles.vue";
+import Footer from "./components/Footer.vue";
 
+const active = ref(false);
 const listGames = computed(() => {
   games.sort((a, b) => a.year - b.year);
 
@@ -28,14 +30,17 @@ const listGames = computed(() => {
     prevYear = actualYear;
   }
 
-  console.log(response);
   return response;
 });
+const hangleImageLoad = () => {
+  // console.log(value);
+  //active.value = false;
+};
 </script>
 
 <template>
   <div class="loading"><img src="./assets/zelda.svg" /></div>
-  <particles></particles>
+  <Particles></Particles>
   <h1 style="color: #cb6">Zelda videogames during the time</h1>
   <div class="content">
     <div class="timeline">
@@ -50,9 +55,11 @@ const listGames = computed(() => {
         <div v-if="item.data.length" class="game">
           <img
             v-for="image of item.data"
-            class="image"
+            :key="image.name"
             :src="image.src"
             loading="lazy"
+            :class="['image', active ? 'image-init' : 'image-end']"
+            @load="hangleImageLoad()"
           />
         </div>
         <div
@@ -63,36 +70,16 @@ const listGames = computed(() => {
       </div>
     </div>
   </div>
-  <footer>
-    <p>
-      Inspired from
-      <a href="https://www.youtube.com/@SuperMetaFun" target="_blank"
-        ><img src="./assets/youtube.svg" /> SuperMetaFun</a
-      >
-      in his video
-      <a
-        href="https://www.youtube.com/watch?v=fHhYoJRm7nU&t=173s"
-        target="_blank"
-        >The Innovative Design of Majora's Mask | Retrospective| Legend of Zelda
-        | Nintendo 64
-      </a>
-      <br />
-      All the info and dates from
-      <a
-        href="https://retrododo.com/legend-of-zelda-games-in-order/"
-        target="_blank"
-      >
-        Retrododo.com
-      </a>
-      <br />
-      Made with ❤️ by
-      <a href="https://github.com/cdmngz" target="_blank">cdmngz</a>
-    </p>
-    <h5>© {{ new Date().getFullYear() }}</h5>
-  </footer>
+  <Footer></Footer>
 </template>
 
 <style scoped>
+.active {
+  border: 10px solid blue;
+}
+.non-active {
+  border: 5px solid blueviolet;
+}
 ::-webkit-scrollbar {
   height: 8px;
 }
@@ -108,6 +95,13 @@ const listGames = computed(() => {
   overflow-x: scroll;
   width: 100vw;
 }
+.divider {
+  background-color: #fff;
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  z-index: 1;
+}
 .divider.even {
   transform: translateY(-45%);
 }
@@ -118,16 +112,24 @@ const listGames = computed(() => {
   align-items: center;
   border-radius: var(--soft);
   display: flex;
-  gap: 10px;
-  height: 200px;
+  gap: 5%;
+  height: 50%;
   justify-content: center;
   position: relative;
 }
+
 .image {
   border-radius: var(--soft);
+  transition: 0.3s;
+  z-index: 1;
+}
+.image-init {
+  max-height: 0%;
+  max-width: 0%;
+}
+.image-end {
   max-height: 80%;
   max-width: 100%;
-  z-index: 1;
 }
 .image:hover {
   box-shadow: 0 0 22px rgba(255, 255, 255, 0.5);
@@ -135,7 +137,7 @@ const listGames = computed(() => {
 }
 .loading {
   align-items: center;
-  animation: loading 5s ease-out forwards;
+  animation: loading 4s ease-out forwards;
   background-color: black;
   display: flex;
   height: 100%;
@@ -146,7 +148,7 @@ const listGames = computed(() => {
   top: 0;
   visibility: visible;
   width: 100%;
-  z-index: 5;
+  z-index: 6;
 }
 .loading img {
   height: 18vh;
@@ -155,7 +157,7 @@ const listGames = computed(() => {
   display: flex;
   margin: 0 10% 5% 10%;
   position: relative;
-  height: 400px;
+  height: 360px;
 }
 .timeline::after {
   content: "";
@@ -170,42 +172,33 @@ const listGames = computed(() => {
   width: 100%;
   position: absolute;
   transform: translateX(-200%);
-  animation: moveX 10s linear forwards;
-}
-.divider {
-  background-color: #fff;
-  height: 14px;
-  width: 14px;
-  border-radius: 50%;
-  z-index: 1;
+  animation: moveX 8s linear forwards;
 }
 .timeline-entry {
-  position: relative;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-.timeline-entry.odd,
-.timeline-entry.even {
+  position: relative;
   width: 200px;
   height: 100%;
 }
+
 .timeline-entry.odd {
   flex-direction: column-reverse;
 }
 .timeline-entry.empty {
   width: 60px;
-  height: 100%;
 }
 .year {
   color: white;
+  text-shadow: 0 0 8px black;
+  z-index: 2;
 }
 
 @keyframes loading {
+  30%,
   50% {
     background-color: #978339;
-  }
-  80% {
     opacity: 1;
     visibility: visible;
   }
