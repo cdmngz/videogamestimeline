@@ -5,68 +5,73 @@ import { computed, ref } from "vue";
 import Particles from "./components/Particles.vue";
 import Footer from "./components/Footer.vue";
 
-const active = ref(false);
 const listGames = computed(() => {
   games.sort((a, b) => a.year - b.year);
 
   let prevYear = games[0].year - 1;
   let even = true;
-  const response = {} as GameList;
+  const response: GameList = {};
 
   for (let i = 0; i < games.length; i++) {
     const actualYear = games[i].year;
-    if (actualYear - prevYear > 1) {
-      let count = actualYear - prevYear;
+    let count = actualYear - prevYear;
+    if (count > 1) {
       while (count > 0) {
-        response[actualYear - count + 1] = { data: [], even: null };
+        response[actualYear - count + 1] = { games: [], even: false };
         count--;
       }
     }
     if (actualYear !== prevYear) {
-      response[actualYear] = { data: [], even: even };
+      response[actualYear] = { games: [], even: even };
       even = !even;
     }
-    response[actualYear].data.push(games[i]);
+    response[actualYear].games.push(games[i]);
     prevYear = actualYear;
   }
 
   return response;
 });
-const hangleImageLoad = () => {
-  // console.log(value);
-  //active.value = false;
+const handleImageLoad = (event: any) => {
+  event.currentTarget.classList.remove("image-init");
+  event.currentTarget.classList.add("image-end");
+};
+
+const pepe = () => {
+  console.log("pepe");
 };
 </script>
 
 <template>
   <div class="loading"><img src="./assets/zelda.svg" /></div>
   <Particles></Particles>
-  <h1 style="color: #cb6">Zelda videogames during the time</h1>
+  <header>
+    <div @click="pepe" class="level-up"></div>
+    <h1 style="color: #cb6">Zelda videogames timeline</h1>
+  </header>
   <div class="content">
     <div class="timeline">
-      <div
-        :class="[
-          'timeline-entry',
-          item.even ? 'even' : item.even === false ? 'odd' : 'empty',
-        ]"
-        v-for="(item, index) of listGames"
-        :key="index"
-      >
-        <div v-if="item.data.length" class="game">
-          <img
-            v-for="image of item.data"
-            :key="image.name"
-            :src="image.src"
-            loading="lazy"
-            :class="['image', active ? 'image-init' : 'image-end']"
-            @load="hangleImageLoad()"
-          />
-        </div>
+      <div v-for="(years, i) of listGames" :key="i">
         <div
-          v-if="item.data.length"
-          :class="['divider', item.even ? 'even' : 'odd']"
-        ></div>
-        <div v-if="item.data.length" class="year">{{ index }}</div>
+          v-if="years.games.length"
+          :class="['timeline-entry', years.even ? 'even' : 'odd']"
+        >
+          <div class="game">
+            <img
+              v-for="(game, j) of years.games"
+              :key="j"
+              :src="game.src"
+              class="image-init"
+              loading="lazy"
+              @load="handleImageLoad"
+            />
+          </div>
+          <div
+            v-if="years.games.length"
+            :class="['divider', years.even ? 'even' : 'odd']"
+          ></div>
+          <div v-if="years.games.length" class="year">{{ i }}</div>
+        </div>
+        <div v-else class="timeline-entry empty"></div>
       </div>
     </div>
   </div>
@@ -96,7 +101,7 @@ const hangleImageLoad = () => {
   width: 100vw;
 }
 .divider {
-  background-color: #fff;
+  background-color: #e4e4e4;
   height: 14px;
   width: 14px;
   border-radius: 50%;
@@ -118,9 +123,9 @@ const hangleImageLoad = () => {
   position: relative;
 }
 
-.image {
+.game img {
   border-radius: var(--soft);
-  transition: 0.3s;
+  transition: 1s;
   z-index: 1;
 }
 .image-init {
@@ -128,12 +133,24 @@ const hangleImageLoad = () => {
   max-width: 0%;
 }
 .image-end {
-  max-height: 80%;
+  max-height: 75%;
   max-width: 100%;
 }
-.image:hover {
-  box-shadow: 0 0 22px rgba(255, 255, 255, 0.5);
+.level-up {
+  background-image: url("https://mystickermania.com/cdn/stickers/games/super-mario-1-up-mushroom-512x512.png");
+  background-repeat: no-repeat;
+  background-size: contain;
   cursor: pointer;
+  height: 50px;
+  opacity: 0.9;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  transition: 0.4s;
+  width: 50px;
+}
+.level-up:hover {
+  transform: rotate(360deg);
 }
 .loading {
   align-items: center;
@@ -161,18 +178,13 @@ const hangleImageLoad = () => {
 }
 .timeline::after {
   content: "";
-  background: linear-gradient(
-    90deg,
-    rgb(170, 153, 68) 0%,
-    rgb(255, 255, 255) 100%
-  );
+  background: rgba(255, 255, 255, 0.4);
   border-radius: 2px;
-  height: 2px;
+  height: 4px;
   top: 50%;
+  transform: translateY(-50%);
   width: 100%;
   position: absolute;
-  transform: translateX(-200%);
-  animation: moveX 8s linear forwards;
 }
 .timeline-entry {
   align-items: center;
@@ -187,10 +199,10 @@ const hangleImageLoad = () => {
   flex-direction: column-reverse;
 }
 .timeline-entry.empty {
-  width: 60px;
+  width: 40px;
 }
 .year {
-  color: white;
+  color: rgba(255, 255, 255, 0.7);
   text-shadow: 0 0 8px black;
   z-index: 2;
 }
@@ -211,12 +223,6 @@ const hangleImageLoad = () => {
 @keyframes loading-icon {
   100% {
     transform: scale(1.2);
-  }
-}
-
-@keyframes moveX {
-  100% {
-    transform: translateX(0);
   }
 }
 </style>

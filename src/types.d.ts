@@ -6,8 +6,8 @@ export type Game = {
 };
 
 export interface GameList {
-  [key: number]: {
-    data: Game[];
-    even: boolean | null;
+  [year: number]: {
+    games: Game[];
+    even: boolean;
   };
 }

@@ -31,7 +31,7 @@ const options = {
       value: "#ffffff",
     },
     collisions: {
-      enable: true,
+      enable: false,
     },
     move: {
       direction: "none",
@@ -47,6 +47,7 @@ const options = {
         area: 800,
       },
       value: 60,
+      limit: 100,
     },
     opacity: {
       value: 0.5,
@@ -60,6 +61,45 @@ const options = {
     },
   },
   detectRetina: true,
+  emitters: {
+    rate: {
+      quantity: 1,
+      delay: 7,
+    },
+    particles: {
+      shape: {
+        type: "images",
+        options: {
+          images: {
+            src: "https://upload.wikimedia.org/wikipedia/en/0/04/Navi_%28The_Legend_of_Zelda%29.png",
+            width: 308,
+            height: 323,
+          },
+        },
+      },
+      size: {
+        value: 40,
+      },
+      move: {
+        speed: 1,
+        outModes: {
+          default: "none",
+          right: "destroy",
+        },
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 5,
+          sync: true,
+        },
+      },
+    },
+  },
 };
 
 const particlesInit = async (engine: Engine) => {

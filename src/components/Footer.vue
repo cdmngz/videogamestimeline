@@ -13,7 +13,7 @@
         | Nintendo 64
       </a>
       <br />
-      All the info and dates from
+      Info and dates from
       <a
         href="https://retrododo.com/legend-of-zelda-games-in-order/"
         target="_blank"
